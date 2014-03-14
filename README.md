@@ -1,7 +1,7 @@
 SpreeMoipPayment
 ================
 
-### [WIP] Este projeto está em desenvolvimento e pode não funcionar no seu projeto. A base de código atual possui algumas peculiaridades de um projeto específico, porém o objetivo é te-lo refatorado para que projeto possa utilizar essa extensão para integrar o MoIP com o Spree.
+### :warning: Este projeto foi desenvolvido pra realizar um projeto específico, no entanto não é mais mantido :warning:
 
 # O que é spree_moip_payment?
 spree_moip_payment, segue o padrão do spree de criar extensões, para criar um Payment Method relacionado ao MoIP na sua aplicação Spree.
