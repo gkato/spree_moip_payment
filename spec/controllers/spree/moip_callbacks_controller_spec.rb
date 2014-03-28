@@ -11,7 +11,7 @@ describe Spree::MoipCallbacksController do
         payment.update_column(:state, "checkout")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "1", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("checkout").to("processing")
+        }.to change{order.reload.payments.first.state}.from("checkout").to("processing")
       }
     end
     context "iniciado" do
@@ -19,7 +19,7 @@ describe Spree::MoipCallbacksController do
         payment.update_column(:state, "checkout")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "2", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("checkout").to("pending")
+        }.to change{order.reload.payments.first.state}.from("checkout").to("pending")
       }
     end
     context "boleto_impresso" do
@@ -27,30 +27,32 @@ describe Spree::MoipCallbacksController do
         payment.update_column(:state, "checkout")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "3", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("checkout").to("pending")
+        }.to change{order.reload.payments.first.state}.from("checkout").to("pending")
       }
     end
     context "concluido" do
       context "com valor correto" do
         it {
+          payment.update_column(:state, "pending")
           expect {
             post :nasp, post_nasp_params.merge!(status_pagamento: "4", id_transacao: order.number, valor: order.total)
-          }.to change{order.reload.payment.state}.from("pending").to("completed")
+          }.to change{order.reload.payments.first.state}.from("pending").to("completed")
         }
       end
       context "com valor incorreto" do
         it {
           expect {
             post :nasp, post_nasp_params.merge!(status_pagamento: "4", id_transacao: order.number, valor: "199")
-          }.to_not change{order.reload.payment.state}
+          }.to_not change{order.reload.payments.first.state}
         }
       end
     end
     context "cancelado" do
       it {
+        payment.update_column(:state, "pending")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "5", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("pending").to("void")
+        }.to change{order.reload.payments.first.state}.from("pending").to("void")
       }
     end
     context "em_analise" do
@@ -58,14 +60,15 @@ describe Spree::MoipCallbacksController do
         payment.update_column(:state, "checkout")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "6", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("checkout").to("processing")
+        }.to change{order.reload.payments.first.state}.from("checkout").to("processing")
       }
     end
     context "estornado" do
       it {
+        payment.update_column(:state, "pending")
         expect {
           post :nasp, post_nasp_params.merge!(status_pagamento: "7", id_transacao: order.number, valor: order.total)
-        }.to change{order.reload.payment.state}.from("pending").to("void")
+        }.to change{order.reload.payments.first.state}.from("pending").to("void")
       }
     end
   end

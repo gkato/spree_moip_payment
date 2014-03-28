@@ -20,43 +20,43 @@ describe Moipr::NASP::Notificacao do
 
     context "autorizado" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("1")
+        notificacao.stub(:status_pagamento).and_return("1")
         notificacao.autorizado?.should be_true
       }
     end
     context "iniciado" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("2")
+        notificacao.stub(:status_pagamento).and_return("2")
         notificacao.iniciado?.should be_true
       }
     end
     context "boleto impresso" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("3")
+        notificacao.stub(:status_pagamento).and_return("3")
         notificacao.boleto_impresso?.should be_true
       }
     end
     context "concluido" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("4")
+        notificacao.stub(:status_pagamento).and_return("4")
         notificacao.concluido?.should be_true
       }
     end
     context "cancelado" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("5")
+        notificacao.stub(:status_pagamento).and_return("5")
         notificacao.cancelado?.should be_true
       }
     end
     context "em analise" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("6")
+        notificacao.stub(:status_pagamento).and_return("6")
         notificacao.em_analise?.should be_true
       }
     end
     context "estornado" do
       it {
-        notificacao.stub!(:status_pagamento).and_return("7")
+        notificacao.stub(:status_pagamento).and_return("7")
         notificacao.estornado?.should be_true
       }
     end

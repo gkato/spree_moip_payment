@@ -30,7 +30,7 @@ module Spree
       @order = Spree::Order.find_by_number(params[:id_transacao])
 
       if @order
-        @payment = @order.payment
+        @payment = @order.payments.first
       end
     end
   end

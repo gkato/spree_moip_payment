@@ -3,7 +3,8 @@ require 'rake/testtask'
 require 'rake/packagetask'
 require 'rubygems/package_task'
 require 'rspec/core/rake_task'
-require 'spree/core/testing_support/common_rake'
+require 'spree/testing_support/common_rake'
+require File.expand_path('../lib/spree_moip_payment', __FILE__)
 
 RSpec::Core::RakeTask.new
 
@@ -24,6 +25,6 @@ end
 
 desc 'Generates a dummy app for testing'
 task :test_app do
-  ENV['LIB_NAME'] = 'spree_moip_payment'
+  ENV['LIB_NAME'] = 'spree_core'
   Rake::Task['common:test_app'].invoke
 end

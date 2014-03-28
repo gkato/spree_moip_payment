@@ -5,6 +5,7 @@ module SpreeMoipPayment
     engine_name 'spree_moip_payment'
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.active_record.whitelist_attributes = true
 
     # use rspec for tests
     config.generators do |g|

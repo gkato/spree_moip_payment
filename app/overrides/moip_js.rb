@@ -1,3 +1,4 @@
+require 'deface'
 Deface::Override.new(:virtual_path => "spree/layouts/spree_application",
                      :name => "moip_js",
                      :insert_bottom => "head",

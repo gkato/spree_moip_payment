@@ -5,8 +5,8 @@ module Spree
     preference :currency, :string, :default => 'BRL'
     preference :moip_environment, :string, :default => "Test"
 
-    attr_accessible :preferred_moip_token, :preferred_moip_key, :preferred_currency, :preferred_moip_environment
-    
+    #attr_accessible :preferred_moip_token, :preferred_moip_key, :preferred_currency, :preferred_moip_environment
+
     def provider_class
       Spree::MoipPayment
     end

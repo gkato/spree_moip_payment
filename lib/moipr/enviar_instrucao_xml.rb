@@ -8,7 +8,7 @@ module Moipr
       xml = ::Builder::XmlMarkup.new(target: '')
       xml.EnviarInstrucao do |ei|
         ei.InstrucaoUnica('TipoValidacao' => 'Transparente') do |instrucao_unica|
-          instrucao_unica.Razao "Loja Fitnoss" # V256
+          instrucao_unica.Razao "Vinke" # V256
           instrucao_unica.IdProprio @order.number # V64
           instrucao_unica.Valores { |v| v.Valor(@order.total, 'moeda' => 'BRL') }# decimal(9,2)
           instrucao_unica.Pagador do |p|

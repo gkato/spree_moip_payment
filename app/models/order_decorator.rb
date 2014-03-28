@@ -2,15 +2,15 @@ require 'rest-client'
 
 Spree::Order.class_eval do
 
-  attr_accessible :moip_boleto_url, :moip_debito_url
+  #attr_accessible :moip_boleto_url, :moip_debito_url
 
   state_machine  do
-    before_transition :to => 'payment', :do => :generate_moip_token
+    before_transition :to => :payment, :do => :generate_moip_token
   end
 
   def generate_moip_token
     regenerate_token
-    self.create_shipment!
+    #self.create_shipment!
     self.reload
     xml = Moipr::EnviarInstrucaoXML.new(order: self)
     instrucao_unica = Moipr::InstrucaoUnica.new(xml)

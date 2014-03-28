@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Spree::Address do
-  describe "mass assignment" do
-    context "allowed values" do
-      [:address_number, :district].each do |attribute|
-        it { should allow_mass_assignment_of(attribute) }
-      end
-    end
-  end
+  #describe "mass assignment" do
+  #  context "allowed values" do
+  #    [:address_number, :district].each do |attribute|
+  #      it { should allow_mass_assignment_of(attribute) }
+  #    end
+  #  end
+  #end
 
   context "validations" do
     describe "requireds" do
