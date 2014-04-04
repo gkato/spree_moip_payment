@@ -1,0 +1,8 @@
+<% if order.moip_debito_url.present? %>
+  <div id="order_moip_boleto_url">
+    <%= link_to "Realizar o pagamento no internet banking", order.moip_debito_url %>
+  </div>
+  <hr/>
+<% end %>
+
+
