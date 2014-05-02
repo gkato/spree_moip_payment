@@ -5,18 +5,17 @@
 
 <h2>Forma de Pagameto</h2>
 <p>
-  <%= label_tag do %>
+  <label class="payment-type-selector boleto">
     <%= radio_button_tag :payment_type, "boleto", true %>
-    Boleto Bancário
-  <% end %>
-  <%= label_tag do %>
+  </label>
+  <br>
+  <label class="payment-type-selector cartao">
     <%= radio_button_tag :payment_type, "cartao_de_credito" %>
-    Cartão de Crédito
-  <% end %>
-  <%= label_tag do %>
+  </label>
+  <br>
+  <label class="payment-type-selector debito">
     <%= radio_button_tag :payment_type, "debito" %>
-    Débito bancário
-  <% end %>
+  </label>
 </p>
 
 <div id="boleto" class="moip_payment">
@@ -24,63 +23,81 @@
 <div id="cartao_de_credito" class="moip_payment">
   <h3>Instituiçao</h3>
   <p>
-    <%= label_tag do %>
+    <label class="credit-card-selector">
       <%= radio_button_tag :instituicao, "Visa" %>
-      Visa
-    <% end %>
-
-    <%= label_tag do %>
-      <%= radio_button_tag :instituicao, "AmericanExpress" %>
-      American Express
-    <% end %>
-
-    <%= label_tag do %>
-      <%= radio_button_tag :instituicao, "Diners" %>
-      Diners
-    <% end %>
-
-    <%= label_tag do %>
-      <%= radio_button_tag :instituicao, "Hipercard" %>
-      Hipercard
-    <% end %>
-
-    <%= label_tag do %>
+      <span class="flag visa">VISA</span>
+    </label>
+    <label class="credit-card-selector">
       <%= radio_button_tag :instituicao, "Mastercard" %>
-      Mastercard
-    <% end %>
+      <span class="flag mastercard">MASTERCARD</span>
+    </label>
+    <label class="credit-card-selector">
+      <%= radio_button_tag :instituicao, "Hipercard" %>
+      <span class="flag hipercard">HIPERCARD</span>
+    </label>
+    <label class="credit-card-selector">
+      <%= radio_button_tag :instituicao, "AmericanExpress" %>
+      <span class="flag americanexpress">AMERICANEXPRESS</span>
+    </label>
+    <label class="credit-card-selector">
+      <%= radio_button_tag :instituicao, "Diners" %>
+      <span class="flag diners">DINERS</span>
+    </label>
   </p>
   <p>
-    <%= label_tag :numero, "Número" %>
+  <%= label_tag :numero, "Número" %><br/>
     <%= text_field_tag :numero %>
   </p>
 
   <p>
-    <%= label_tag :codigo_seguranca, "Codigo de segurança" %>
-    <%= text_field_tag :codigo_seguranca %>
+    <%= label_tag :codigo_seguranca, "Codigo de segurança" %><br/>
+    <%= text_field_tag :codigo_seguranca, "", class:"cod-seguranca"  %>
+    <span class="cod-seguranca-helper">minicvv</span>
   </p>
 
   <p>
-    <%= label_tag :expiracao, "Expiração" %>
-    <%= text_field_tag :expiracao %>
+    <%= label_tag :expiracao, "Validade" %><br/>
+
+    <% months = (1..12).to_a.map {|i| [i,i] } %>
+    <% current_year = Date.today.year %>
+    <% years = (0..10).to_a.map { |i| [current_year+i, current_year+i] } %>
+
+    <%= select_tag "expiration_month", options_for_select(months), onchange:"setExpirationDate()" %>
+    <%= select_tag "expiration_year", options_for_select(years), onchange:"setExpirationDate()" %>
+
+    <%= hidden_field_tag :expiracao, nil %>
+
+    <script type="text/javascript">
+      function setExpirationDate() {
+        var month = $("#expiration_month").val();
+        if(month.length == 1) {
+          month = "0"+month;
+        }
+
+        var year = $("#expiration_year").val();
+        $("#expiracao").val(month+"/"+year);
+      }
+      setExpirationDate();
+    </script>
   </p>
 
   <p>
-    <%= label_tag :nome, "Nome" %>
+    <%= label_tag :nome, "Nome" %> (Como está no cartão)<br/>
     <%= text_field_tag :nome %>
   </p>
 
   <p>
-    <%= label_tag :data_nascimento, "Data de nascimento" %>
+    <%= label_tag :data_nascimento, "Data de nascimento" %><br/>
     <%= text_field_tag :data_nascimento %>
   </p>
 
   <p>
-    <%= label_tag :telefone, "Telefone" %>
+    <%= label_tag :telefone, "Telefone" %><br/>
     <%= text_field_tag :telefone %>
   </p>
 
   <p>
-    <%= label_tag :identidade, "CPF" %>
+    <%= label_tag :identidade, "CPF" %><br/>
     <%= text_field_tag :identidade %>
   </p>
 </div>
@@ -89,22 +106,17 @@
   <p>
     <%= label_tag do %>
       <%= radio_button_tag :instituicao, "BancoDoBrasil" %>
-      Banco do Brasil
+      <span class="debit-flag banco-do-brasil">Banco do Brasil</span>
     <% end %>
 
     <%= label_tag do %>
       <%= radio_button_tag :instituicao, "Bradesco" %>
-      Bradesco
-    <% end %>
-
-    <%= label_tag do %>
-      <%= radio_button_tag :instituicao, "Banrisul" %>
-      Banrisul
+      <span class="debit-flag bradesco">Bradesco</span>
     <% end %>
 
     <%= label_tag do %>
       <%= radio_button_tag :instituicao, "Itau" %>
-      Itaú
+      <span class="debit-flag itau">Itaú</span>
     <% end %>
   </p>
 </div>
