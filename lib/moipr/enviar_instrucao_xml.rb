@@ -21,7 +21,7 @@ module Moipr
               e.Complemento @order.bill_address.address2 # Opcional 45
               e.Bairro  @order.bill_address.district # 45
               e.Cidade @order.bill_address.city # 32
-              e.Estado @order.bill_address.state_name # UF -> 2
+              e.Estado @order.bill_address.state.abbr # UF -> 2
               e.Pais "BRA" # 3
               e.CEP @order.bill_address.zipcode # 00000-000 V20
               e.TelefoneFixo @order.bill_address.phone # (00)0000-0000 V20
