@@ -1,14 +1,17 @@
 //= require maskedinput
 
 $(document).ready(function(){
-  $(".moip_payment").hide();
-  $("input[name='payment_type']").change(function(){
-    var payment_selected = $(this).val();
-    $(".moip_payment").hide();
-    $("#" + payment_selected).show();
-  });
+  //$(".moip_payment").hide();
+  //$("input[name='payment_type']").change(function(){
+  //  var payment_selected = $(this).val();
+  //  $(".moip_payment").hide();
+  //  $("#" + payment_selected).show();
+  //});
+
+   $("#loading-div-background").css({ opacity: 0.8 });
 
    $("#checkout_form_payment input[type=submit]").click(function(e){
+     $("#loading-div-background").show();
      processaPagamento();
      e.preventDefault();
    });
@@ -40,7 +43,6 @@ $(document).ready(function(){
    $("#order_bill_address_attributes_zipcode, #order_ship_address_attributes_zipcode").mask("99999-999");
    $("#order_bill_address_attributes_phone, #order_ship_address_attributes_phone").mask("(99)9999-9999?9");
 });
-
 
 function processaPagamento(){
   var selected = $("input[name='payment_type']:checked").val();
@@ -118,11 +120,14 @@ var funcao_falha = function(data) {
 
   $.each(data.reverse(), function(index, key) {
       error_html += $('<li />', {
-      html: key["Mensagem"]
+      html: decodeURIComponent(escape(key["Mensagem"]))
       }).prependTo("#error_explanation ul");
   });
 
+  $("#error_explanation").css('color', 'red');
   $("#error_explanation").show();
+  $("#loading-div-background").hide();
+  $("#html, body").animate({ scrollTop: $('#error_explanation').offset().top }, 'fast');
 };
 
 
