@@ -25,7 +25,7 @@ $(document).ready(function(){
      class: "flash notice",
    }).prependTo("#cartao_de_credito").hide();
 
-   generateMoipFields();
+   //generateMoipFields();
 
    jQuery.validator.addMethod("zipcode", function(value, element) {
      return value.match(/^(\d){5}-(\d){3}$/);
@@ -131,36 +131,36 @@ var funcao_falha = function(data) {
 };
 
 
-function generateMoipFields(){
-  $('<p id="baddress_number" class="field"> \
-      <label for="order_bill_address_attributes_address_number">Numero</label> \
-      <span class="required"> \
-        * \
-      </span> \
-      <br><input type="text" name="order[bill_address_attributes][address_number]" id="order_bill_address_attributes_address_number" class="required"> \
-  </p>').insertBefore('#baddress2');
-
-  $('<p id="bdistrict" class="field"> \
-    <label for="order_bill_address_attributes_district">Bairro</label> \
-    <span class="required"> \
-      * \
-    </span> \
-    <br><input type="text" name="order[bill_address_attributes][district]" id="order_bill_address_attributes_district" class="required"> \
-  </p>').insertBefore('#bzipcode');
-
-  $('<p id="saddress_number" class="field"> \
-    <label for="order_ship_address_attributes_address_number">Numero</label> \
-    <span class="required"> \
-      * \
-    </span> \
-    <br><input type="text" name="order[ship_address_attributes][address_number]" id="order_ship_address_attributes_address_number" class="required"> \
-  </p>').insertBefore('#saddress2');
-
-  $('<p id="sdistrict" class="field"> \
-    <label for="order_ship_address_attributes_district">Bairro</label> \
-    <span class="required"> \
-      * \
-    </span> \
-    <br><input type="text" name="order[ship_address_attributes][district]" id="order_ship_address_attributes_district" class="required"> \
-  </p>').insertBefore('#szipcode');
-}
+//function generateMoipFields(){
+//  $('<p id="baddress_number" class="field"> \
+//      <label for="order_bill_address_attributes_address_number">Numero</label> \
+//      <span class="required"> \
+//        * \
+//      </span> \
+//      <br><input type="text" name="order[bill_address_attributes][address_number]" id="order_bill_address_attributes_address_number" class="required"> \
+//  </p>').insertBefore('#baddress2');
+//
+//  $('<p id="bdistrict" class="field"> \
+//    <label for="order_bill_address_attributes_district">Bairro</label> \
+//    <span class="required"> \
+//      * \
+//    </span> \
+//    <br><input type="text" name="order[bill_address_attributes][district]" id="order_bill_address_attributes_district" class="required"> \
+//  </p>').insertBefore('#bzipcode');
+//
+//  $('<p id="saddress_number" class="field"> \
+//    <label for="order_ship_address_attributes_address_number">Numero</label> \
+//    <span class="required"> \
+//      * \
+//    </span> \
+//    <br><input type="text" name="order[ship_address_attributes][address_number]" id="order_ship_address_attributes_address_number" class="required"> \
+//  </p>').insertBefore('#saddress2');
+//
+//  $('<p id="sdistrict" class="field"> \
+//    <label for="order_ship_address_attributes_district">Bairro</label> \
+//    <span class="required"> \
+//      * \
+//    </span> \
+//    <br><input type="text" name="order[ship_address_attributes][district]" id="order_ship_address_attributes_district" class="required"> \
+//  </p>').insertBefore('#szipcode');
+//}
