@@ -122,17 +122,15 @@ var funcao_falha = function(data) {
 
   if(data.Mensagem){
     error_html += $('<li />', {
-    html: decodeURIComponent(escape(data.Mensagem))
+    text: escape(data.Mensagem)
     }).prependTo("#error_explanation ul");
   }
 
-  if(data.reverse()) {
-    $.each(data.reverse(), function(index, key) {
-        error_html += $('<li />', {
-        text: escape(key["Mensagem"])
-        }).prependTo("#error_explanation ul");
-    });
-  }
+  $.each(data.reverse(), function(index, key) {
+      error_html += $('<li />', {
+      html: decodeURIComponent(escape(key["Mensagem"]))
+      }).prependTo("#error_explanation ul");
+  });
 
   $("#error_explanation").css('color', 'red');
   $("#error_explanation").show();
