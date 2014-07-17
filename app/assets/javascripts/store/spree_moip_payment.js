@@ -120,11 +120,19 @@ var funcao_falha = function(data) {
   error_html += $('<ul />', {
   }).appendTo("#error_explanation");
 
-  $.each(data.reverse(), function(index, key) {
-      error_html += $('<li />', {
-      html: decodeURIComponent(escape(key["Mensagem"]))
-      }).prependTo("#error_explanation ul");
-  });
+  if(data.Mensagem){
+    error_html += $('<li />', {
+    html: decodeURIComponent(escape(data.Mensagem))
+    }).prependTo("#error_explanation ul");
+  }
+
+  if(data.reverse()) {
+    $.each(data.reverse(), function(index, key) {
+        error_html += $('<li />', {
+        html: decodeURIComponent(escape(key["Mensagem"]))
+        }).prependTo("#error_explanation ul");
+    });
+  }
 
   $("#error_explanation").css('color', 'red');
   $("#error_explanation").show();
