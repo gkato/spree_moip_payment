@@ -129,7 +129,7 @@ var funcao_falha = function(data) {
   if(data.reverse()) {
     $.each(data.reverse(), function(index, key) {
         error_html += $('<li />', {
-        html: decodeURIComponent(escape(key["Mensagem"]))
+        text: escape(key["Mensagem"])
         }).prependTo("#error_explanation ul");
     });
   }
