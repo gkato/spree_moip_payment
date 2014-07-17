@@ -2,6 +2,8 @@
 <% param_prefix = "payment_source[#{payment_method.id}]" %>
 <%= hidden_field_tag :order_moip_boleto_url, nil, :name => "order[moip_boleto_url]" %>
 <%= hidden_field_tag :order_moip_debito_url, nil, :name => "order[moip_debito_url]" %>
+<%= hidden_field_tag :order_moip_code, nil, :name => "order[moip_code]" %>
+<%= hidden_field_tag :order_moip_status, nil, :name => "order[moip_status]" %>
 
 <h2>Forma de Pagameto</h2>
 <p>

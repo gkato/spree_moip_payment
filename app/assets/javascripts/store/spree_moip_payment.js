@@ -48,7 +48,7 @@ function processaPagamento(){
   var selected = $("input[name='payment_type']:checked").val();
   switch(selected) {
     case "boleto":
-      processaPagtoBoleto();
+     processaPagtoBoleto();
      break;
     case "cartao_de_credito":
       processaPagtoCredito();
@@ -105,6 +105,8 @@ var funcao_sucesso = function(data){
   if (selected === "debito") {
     $("#order_moip_debito_url").val(data.url);
   }
+  $("#order_moip_code").val(data.CodigoMoIP);
+  $("#order_moip_status").val(data.Status);
   $("#checkout_form_payment").submit();
 };
 
