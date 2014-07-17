@@ -122,7 +122,7 @@ var funcao_falha = function(data) {
 
   if(data.Mensagem){
     error_html += $('<li />', {
-    text: escape(data.Mensagem)
+    text: data.Mensagem
     }).prependTo("#error_explanation ul");
   }
 
