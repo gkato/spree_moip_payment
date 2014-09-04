@@ -6,27 +6,25 @@
 <%= hidden_field_tag :order_moip_status, nil, :name => "order[moip_status]" %>
 
 <h2>Forma de Pagameto</h2>
-<p>
-<!--
+<div class="payment-type-container">
   <label class="payment-type-selector boleto">
     <%= radio_button_tag :payment_type, "boleto" %>
   </label>
-  <br>
+<!--
   <label class="payment-type-selector debito">
     <%= radio_button_tag :payment_type, "debito" %>
   </label>
   <br>
   -->
   <label class="payment-type-selector cartao">
-    <%= radio_button_tag :payment_type, "cartao_de_credito", true %>
+    <%= radio_button_tag :payment_type, "cartao_de_credito" %>
   </label>
-</p>
-
-<!--
-<div id="boleto" class="moip_payment">
 </div>
--->
-<div id="cartao_de_credito" class="moip_payment">
+
+<div id="boleto" class="moip_payment" style="display:none;">
+</div>
+
+<div id="cartao_de_credito" class="moip_payment" style="display:none;">
   <h3>Instituiçao</h3>
   <p>
     <label class="credit-card-selector">
@@ -103,12 +101,17 @@
   </p>
 
   <p>
-    <%= label_tag :identidade, "CPF" %><br/>
+    <%= label_tag :identidade, "CPF (Somento números)" %><br/>
     <%= text_field_tag :identidade %>
+  </p>
+
+  <p>
+    <%= label_tag :parcelas, "Parcelamento:" %>&nbsp;<span class="info-parcelamento">(Selecione uma bandera de cartão para ativar o parcelamento)</span><br/>
+    <%= select_tag :parcelas, options_for_select([["1x - R$#{"%.2f" % @order.total.to_f}".gsub(".", ","), 1]]) %>
   </p>
 </div>
 <!--
-<div id="debito" class="moip_payment">
+<div id="debito" class="moip_payment"  style="display:none;">
   <h3>Instituiçao</h3>
   <p>
     <%= label_tag do %>

@@ -27,6 +27,17 @@ module Moipr
               e.TelefoneFixo @order.bill_address.phone # (00)0000-0000 V20
             end
           end
+          instrucao_unica.Parcelamentos do |parcelamentos|
+            parcelamentos.Parcelamento do |par|
+              par.MinimoParcelas 2
+              par.MaximoParcelas 3
+            end
+            parcelamentos.Parcelamento do |par|
+              par.MinimoParcelas 4
+              par.MaximoParcelas 12
+              par.Repassar "true"
+            end
+          end
         end
       end
     end

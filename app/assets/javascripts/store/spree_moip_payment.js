@@ -1,12 +1,12 @@
 //= require maskedinput
 
 $(document).ready(function(){
-  //$(".moip_payment").hide();
-  //$("input[name='payment_type']").change(function(){
-  //  var payment_selected = $(this).val();
-  //  $(".moip_payment").hide();
-  //  $("#" + payment_selected).show();
-  //});
+   $(".moip_payment").hide();
+   $("input[name='payment_type']").change(function(){
+     var payment_selected = $(this).val();
+     $(".moip_payment").hide();
+     $("#" + payment_selected).show();
+   });
 
    $("#loading-div-background").css({ opacity: 0.8 });
 
@@ -42,6 +42,12 @@ $(document).ready(function(){
 
    $("#order_bill_address_attributes_zipcode, #order_ship_address_attributes_zipcode").mask("99999-999");
    $("#order_bill_address_attributes_phone, #order_ship_address_attributes_phone").mask("(99)9999-9999?9");
+
+   $("input#data_nascimento").mask("99/99/9999")
+
+   $("input[name=instituicao]").click(function(){
+     obterParcelas();
+   });
 });
 
 function processaPagamento(){
@@ -64,7 +70,7 @@ function processaPagtoCredito() {
    var settings = {
        "Forma": "CartaoCredito",
        "Instituicao": $(form).find("input[name=instituicao]:checked").val(),
-       "Parcelas": "1",
+       "Parcelas": $('select#parcelas').val(),
        "Recebimento": "AVista",
        "CartaoCredito": {
            "Numero": $(form).find("input[name=numero]").val(),
@@ -82,19 +88,52 @@ function processaPagtoCredito() {
 }
 
 function processaPagtoBoleto() {
-    var settings = {
-        "Forma": "BoletoBancario"
-    }
-    MoipWidget(settings);
+  var settings = {
+      "Forma": "BoletoBancario"
+  }
+  MoipWidget(settings);
 }
 
 function processaPagtoDebito() {
-    form = $("#debito");
-    var settings = {
-        "Forma": "DebitoBancario",
-        "Instituicao": form.find("input[name=instituicao]:checked").val()
-    }
-    MoipWidget(settings);
+  form = $("#debito");
+  var settings = {
+      "Forma": "DebitoBancario",
+      "Instituicao": form.find("input[name=instituicao]:checked").val()
+  }
+  MoipWidget(settings);
+}
+
+function obterParcelas(){
+  $('span.info-parcelamento').remove();
+  $('select#parcelas')
+          .find('option')
+          .remove()
+          .end()
+          .append('<option value="1">...carregando</option>')
+          .val('1');
+  var settings = {
+            cofre: "",
+            instituicao: $("input[name=instituicao]:checked").val(),
+            callback: "retornoCalculoParcelamento"
+  };
+  MoipUtil.calcularParcela(settings);
+}
+
+var retornoCalculoParcelamento = function(data){
+  $('select#parcelas')
+          .find('option')
+          .remove()
+          .end()
+  $.each(data.parcelas, function() {
+     var juros = "";
+     if(this.quantidade > 3) {
+       juros = "(1,99 a.m.)"
+     }
+     $('select#parcelas')
+         .append($("<option></option>")
+         .attr("value",this.quantidade)
+         .text(""+this.quantidade+"x - "+"R$"+this.valor+" "+juros+"".replace(".", ",")));
+  });
 }
 
 var funcao_sucesso = function(data){
@@ -139,38 +178,3 @@ var funcao_falha = function(data) {
   $("#loading-div-background").hide();
   $("#html, body").animate({ scrollTop: $('#error_explanation').offset().top }, 'fast');
 };
-
-
-//function generateMoipFields(){
-//  $('<p id="baddress_number" class="field"> \
-//      <label for="order_bill_address_attributes_address_number">Numero</label> \
-//      <span class="required"> \
-//        * \
-//      </span> \
-//      <br><input type="text" name="order[bill_address_attributes][address_number]" id="order_bill_address_attributes_address_number" class="required"> \
-//  </p>').insertBefore('#baddress2');
-//
-//  $('<p id="bdistrict" class="field"> \
-//    <label for="order_bill_address_attributes_district">Bairro</label> \
-//    <span class="required"> \
-//      * \
-//    </span> \
-//    <br><input type="text" name="order[bill_address_attributes][district]" id="order_bill_address_attributes_district" class="required"> \
-//  </p>').insertBefore('#bzipcode');
-//
-//  $('<p id="saddress_number" class="field"> \
-//    <label for="order_ship_address_attributes_address_number">Numero</label> \
-//    <span class="required"> \
-//      * \
-//    </span> \
-//    <br><input type="text" name="order[ship_address_attributes][address_number]" id="order_ship_address_attributes_address_number" class="required"> \
-//  </p>').insertBefore('#saddress2');
-//
-//  $('<p id="sdistrict" class="field"> \
-//    <label for="order_ship_address_attributes_district">Bairro</label> \
-//    <span class="required"> \
-//      * \
-//    </span> \
-//    <br><input type="text" name="order[ship_address_attributes][district]" id="order_ship_address_attributes_district" class="required"> \
-//  </p>').insertBefore('#szipcode');
-//}
