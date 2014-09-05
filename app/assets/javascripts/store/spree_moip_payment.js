@@ -104,19 +104,19 @@ function processaPagtoDebito() {
 }
 
 function obterParcelas(){
-  $('span.info-parcelamento').remove();
-  $('select#parcelas')
-          .find('option')
-          .remove()
-          .end()
-          .append('<option value="1">...carregando</option>')
-          .val('1');
-  var settings = {
-            cofre: "",
-            instituicao: $("input[name=instituicao]:checked").val(),
-            callback: "retornoCalculoParcelamento"
-  };
-  MoipUtil.calcularParcela(settings);
+  //$('span.info-parcelamento').remove();
+  //$('select#parcelas')
+  //        .find('option')
+  //        .remove()
+  //        .end()
+  //        .append('<option value="1">...carregando</option>')
+  //        .val('1');
+  //var settings = {
+  //          cofre: "",
+  //          instituicao: $("input[name=instituicao]:checked").val(),
+  //          callback: "retornoCalculoParcelamento"
+  //};
+  //MoipUtil.calcularParcela(settings);
 }
 
 var retornoCalculoParcelamento = function(data){
