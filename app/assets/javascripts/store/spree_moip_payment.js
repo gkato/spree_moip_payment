@@ -103,7 +103,7 @@ function processaPagtoDebito() {
   MoipWidget(settings);
 }
 
-function obter(){
+function obterParcelas(){
   if(data.parcelas.length > 0 ) {
     $('span.info-parcelamento').remove();
     $('select#parcelas')
@@ -115,7 +115,7 @@ function obter(){
     var settings = {
               cofre: "",
               instituicao: $("input[name=instituicao]:checked").val(),
-              callback: "retorno"
+              callback: "retornoCalculoParcelamento"
     };
     MoipUtil.calcularParcela(settings);
   }
