@@ -104,38 +104,38 @@ function processaPagtoDebito() {
 }
 
 function obterParcelas(){
-  if(data.parcelas.length > 0 ) {
-    $('span.info-parcelamento').remove();
-    $('select#parcelas')
-            .find('option')
-            .remove()
-            .end()
-            .append('<option value="1">...carregando</option>')
-            .val('1');
-    var settings = {
-              cofre: "",
-              instituicao: $("input[name=instituicao]:checked").val(),
-              callback: "retornoCalculoParcelamento"
-    };
-    MoipUtil.calcularParcela(settings);
-  }
-}
-
-var retornoCalculoParcelamento = function(data){
+  $('span.info-parcelamento').remove();
   $('select#parcelas')
           .find('option')
           .remove()
           .end()
-  $.each(data.parcelas, function() {
-     var juros = "";
-     if(this.quantidade > 3) {
-       juros = "(1,99 a.m.)"
-     }
-     $('select#parcelas')
-         .append($("<option></option>")
-         .attr("value",this.quantidade)
-         .text(""+this.quantidade+"x - "+"R$"+this.valor+" "+juros+"".replace(".", ",")));
-  });
+          .append('<option value="1">...carregando</option>')
+          .val('1');
+  var settings = {
+            cofre: "",
+            instituicao: $("input[name=instituicao]:checked").val(),
+            callback: "retornoCalculoParcelamento"
+  };
+  MoipUtil.calcularParcela(settings);
+}
+
+var retornoCalculoParcelamento = function(data){
+  if(data.parcelas.length > 0 ) {
+    $('select#parcelas')
+            .find('option')
+            .remove()
+            .end()
+    $.each(data.parcelas, function() {
+       var juros = "";
+       if(this.quantidade > 3) {
+         juros = "(1,99 a.m.)"
+       }
+       $('select#parcelas')
+           .append($("<option></option>")
+           .attr("value",this.quantidade)
+           .text(""+this.quantidade+"x - "+"R$"+this.valor+" "+juros+"".replace(".", ",")));
+    });
+  }
 }
 
 var funcao_sucesso = function(data){
